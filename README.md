@@ -246,7 +246,7 @@ csrf_token memastikan permintaan ke server berasal dari sumber yang sah, menamba
     ]
     ```
      
-### Contoh Hasil API Call dengan Postman
+### Mengakses keempat URL di poin 2 menggunakan Postman
 **XML All**
 ![image](https://github.com/Affandi21/layot-store/blob/c3595fb8c59819da704e78d7bfddbac5b3375a4a/src/Screenshot%20(39).png)
 
