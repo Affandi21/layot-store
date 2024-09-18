@@ -1,4 +1,8 @@
-Web: http://affandi-shafwan-ecommerce.pbp.cs.ui.ac.id/
+Web: http://affandi-shafwan-layotstore.pbp.cs.ui.ac.id/
+
+## Tugas PBP 2024/2025
+### Tugas 2
+### Tugas 3
 
 ## Tugas 2 - PBP 2024/2025
 Langkah-langkah yang dilakukan:
@@ -244,5 +248,16 @@ csrf_token memastikan permintaan ke server berasal dari sumber yang sah, menamba
      
 ### Contoh Hasil API Call dengan Postman
 **XML All**
+![image](https://github.com/Affandi21/layot-store/blob/c3595fb8c59819da704e78d7bfddbac5b3375a4a/src/Screenshot%20(39).png)
 
+
+**JSON All**
+![image](https://github.com/Affandi21/layot-store/blob/c3595fb8c59819da704e78d7bfddbac5b3375a4a/src/Screenshot%20(38).png)
+
+
+**XML by ID**
+![image](https://github.com/Affandi21/layot-store/blob/c3595fb8c59819da704e78d7bfddbac5b3375a4a/src/Screenshot%20(41).png)
+
+**JSON by ID**
+![image](https://github.com/Affandi21/layot-store/blob/c3595fb8c59819da704e78d7bfddbac5b3375a4a/src/Screenshot%20(40).png)
 
