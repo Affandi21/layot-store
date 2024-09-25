@@ -460,10 +460,14 @@ urlpatterns = [
 ]
 ```
 
-## 6. Membuat Dua Akun Pengguna dengan Dummy Data
+## 5. Membuat Dua Akun Pengguna dengan Dummy Data
+## Akun pertama
+![image](https://github.com/Affandi21/layot-store/blob/49565f5008e5d0fe3134325714cec9a04410cf45/src/Screenshot%20(46).png)
 
+## Akun kedua
+![image](https://github.com/Affandi21/layot-store/blob/49565f5008e5d0fe3134325714cec9a04410cf45/src/Screenshot%20(47).png)
 
-## 7. Menggunakan Data Dari Cookies
+## 6. Menggunakan Data Dari Cookies
 Buka views.py yang ada pada subdirektori main. Tambahkan import HttpResponseRedirect, reverse, dan datetime.
 Lalu Pada fungsi login_user,  tambahkan fungsionalitas menambahkan cookie yang bernama last_login untuk melihat kapan terakhir kali pengguna melakukan login. 
 ```python
@@ -475,7 +479,7 @@ if form.is_valid():
     return response
 ```
 
-## 8. Menghubungkan Model MoodEntry dengan User
+## 7. Menghubungkan Model MoodEntry dengan User
 Buka models.py yang ada pada subdirektori main dan tambahkan import user untuk mengimpor model, kemudian pada model LayotStore yang sudah dibuat, tambahkan potongan kode berikut:
 ```python
 class LayotStore(models.Model):
