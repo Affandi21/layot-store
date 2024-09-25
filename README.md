@@ -261,3 +261,234 @@ csrf_token memastikan permintaan ke server berasal dari sumber yang sah, menamba
 **JSON by ID**
 ![image](https://github.com/Affandi21/layot-store/blob/c3595fb8c59819da704e78d7bfddbac5b3375a4a/src/Screenshot%20(40).png)
 
+
+
+## Tugas 4 - PBP 2024/2025
+
+### Perbedaan antara `HttpResponseRedirect()` dan `redirect()`
+### HttpResponseRedirect()
+Berfungsi untuk mengembalikan respons HTTP 302 yang memerintahkan browser untuk melakukan pengalihan ke URL yang ditentukan.
+Contoh Penggunaan:
+
+```python
+from django.http import HttpResponseRedirect
+
+def my_view(request):
+    return HttpResponseRedirect('/some-url/')
+```
+Kelebihan: memiliki kendali penuh atas URL yang dituju, tapi ini hanya terbatas pada URL yang harus ditentukan sebagai string.
+
+HttpResponseRedirect() cocok jika hanya ingin melakukan redirect ke URL tertentu dan tidak membutuhkan banyak fleksibilitas.
+
+
+### redirect()
+Merupakan shortcut (fungsi bantu) yang lebih fleksibel untuk melakukan redirect. Fungsi ini pada dasarnya adalah pembungkus (wrapper) dari HttpResponseRedirect().
+
+Contoh penggunaan:
+```python
+from django.shortcuts import redirect
+
+# Redirect dengan URL
+def my_view(request):
+    return redirect('/some-url/')
+
+# Redirect dengan nama view
+def my_view(request):
+    return redirect('view-name')
+
+# Redirect dengan model instance (memerlukan get_absolute_url di model)
+def my_view(request):
+    obj = MyModel.objects.get(pk=1)
+    return redirect(obj)
+
+```
+
+Kelebihan: redirect() lebih mudah digunakan karena mendukung lebih banyak jenis argumen, sehingga tidak perlu khawatir dengan format URL secara eksplisit. Django akan secara otomatis menerjemahkan view name atau object instance menjadi URL yang benar.
+
+redirect() lebih mudah dibaca dan ditulis, serta menawarkan lebih banyak opsi untuk pengalihan.
+---
+
+### Jelaskan cara kerja penghubungan model Product dengan User!
+Kita dapat menggunakan field ForeignKey
+## Relasi One-to-Many (ForeignKey)
+Satu pengguna dapat memiliki banyak produk. Setiap produk hanya dimiliki oleh satu pengguna. Anda bisa menggunakan ForeignKey untuk membuat relasi ini.
+Langkah-langkah:
+1. Tambahkan ForeignKey ke model Product untuk menunjuk ke User.
+2. Gunakan on_delete=models.CASCADE untuk memastikan jika pengguna dihapus, produk terkait juga dihapus.
+
+```python
+from django.db import models
+from django.contrib.auth.models import User
+
+class Product(models.Model):
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)  # Relasi ForeignKey
+
+    def __str__(self):
+        return self.name
+
+```
+Penjelasan: owner = models.ForeignKey(User, on_delete=models.CASCADE): Produk dihubungkan dengan pengguna yang menjadi pemiliknya. Jika pengguna dihapus, produk juga akan dihapus.
+
+---
+
+### Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+## Authentication (Autentikasi):
+Proses verifikasi identitas pengguna, yaitu memeriksa apakah pengguna adalah orang yang mereka klaim,  proses ini terjadi saat pengguna memasukkan informasi login, dan Django memvalidasi kredensial mereka terhadap database.
+
+Tujuan: Memastikan bahwa pengguna yang mencoba mengakses aplikasi atau sistem adalah pengguna yang sah.
+
+Contoh: Saat pengguna memasukkan username dan password, aplikasi memeriksa apakah kredensial yang diberikan sesuai dengan data yang disimpan.
+
+## Authorization (Otorisasi):
+Proses pengaturan hak akses pengguna, yaitu menentukan apa yang boleh dilakukan oleh pengguna yang telah terotentikasi. Setelah pengguna terotentikasi, Django menggunakan izin (permissions) dan grup (groups) untuk memutuskan apakah pengguna diizinkan melakukan tindakan tertentu.
+
+Tujuan: Menentukan tindakan atau sumber daya apa yang dapat diakses oleh pengguna tertentu, berdasarkan peran atau izin yang mereka miliki.
+
+Contoh: Setelah pengguna login (terotentikasi), sistem memeriksa apakah pengguna tersebut memiliki hak untuk mengakses halaman admin atau melakukan tindakan tertentu.
+
+## Proses yang Terjadi Saat Pengguna Login
+Ketika pengguna login ke aplikasi Django:
+1. Pengguna memasukkan kredensial (username dan password)
+2. Django memverifikasi kredensial: Menggunakan sistem autentikasi, Django mencocokkan username dan password yang dimasukkan dengan data pengguna yang ada di database.
+Jika kredensial benar, pengguna diotentikasi.
+Jika salah, Django menampilkan pesan kesalahan.
+3. Setelah terotentikasi, Django membuat sesi pengguna: Django menyimpan informasi tentang pengguna di sesi (session) agar pengguna tetap dianggap login selama sesi berlangsung.
+4. Authorization: Setiap kali pengguna mengakses halaman atau mencoba melakukan tindakan, Django memeriksa apakah pengguna memiliki izin yang sesuai.
+
+---
+
+### Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
+## Django mengingat pengguna yang telah login dengan menggunakan session dan cookies.
+Sesi (Session): Setelah pengguna berhasil login, Django membuat sesi untuk pengguna tersebut. Django menyimpan data sesi di server dan menyimpan session ID (ID unik untuk sesi tersebut) di cookie di browser pengguna.
+
+Cookies: Django menggunakan cookie untuk menyimpan session ID ini, sehingga setiap kali pengguna mengirim permintaan baru ke server, session ID dikirim bersama cookie, dan Django dapat mencocokkannya dengan data sesi yang tersimpan di server.
+
+## Kegunaan lain dari cookies
+1. Menyimpan preferensi pengguna: Cookies dapat menyimpan data seperti tema yang dipilih pengguna, bahasa yang diinginkan, atau pengaturan halaman.
+2. Pelacakan dan analitik: Cookies sering digunakan oleh situs web untuk melacak aktivitas pengguna (seperti halaman yang dikunjungi) guna menganalisis perilaku pengguna atau memberikan rekomendasi.
+3. Iklan dan retargeting: Cookies digunakan untuk menyimpan data tentang kebiasaan browsing pengguna, yang kemudian digunakan oleh pengiklan untuk menampilkan iklan yang relevan.
+4. Otentikasi yang tersimpan: Beberapa situs menggunakan cookies untuk menyimpan status login jangka panjang, sehingga pengguna tetap login meskipun setelah browser ditutup.
+5. Keranjang belanja (Shopping cart): Cookies bisa digunakan untuk menyimpan produk yang dipilih pengguna di keranjang belanja, bahkan jika mereka belum login.
+
+## Apakah Semua Cookies Aman Digunakan?
+Tidak semua cookies aman digunakan,
+Risiko dan Keamanan Cookies:
+1.  Cookies yang tidak dienkripsi: Jika cookies tidak dilindungi dengan baik, seperti tidak menggunakan HTTPS, data dalam cookies bisa dicegat oleh pihak ketiga melalui man-in-the-middle attacks.
+
+
+2. Cookies yang tidak dienkripsi dengan baik di sisi klien: Jika informasi sensitif disimpan dalam cookies tanpa enkripsi, penyerang bisa memanipulasi atau mencuri data pengguna.
+
+3. Cookies pihak ketiga (Third-party cookies): Cookies yang dibuat oleh situs lain selain situs yang Anda kunjungi (misalnya, untuk pelacakan iklan) dapat menimbulkan masalah privasi. Mereka memungkinkan pihak ketiga untuk melacak aktivitas pengguna di berbagai situs web.
+
+---
+
+### Langkah-langkah Implementasi Checklist
+
+## 1. Membuat Fungsi dan Form Registrasi
+Buka views.py yang ada pada subdirektori main, lalu tambahkan import UserCreationForm dan messages pada bagian paling atas, dan tambahkan  fungsi register di bawah ke dalam views.py.
+```python
+  # Authentication Views
+  def register(request):
+      form = UserCreationForm()
+  
+      if request.method == "POST":
+          form = UserCreationForm(request.POST)
+          if form.is_valid():
+              form.save()
+              messages.success(request, "Akun baru berhasil dibuat")
+              return redirect('main:login')
+          
+      context = {'form': form}
+      return render(request, 'auth/register.html', context)
+```
+Lalu buat template auth/register.html untuk menampilkan form pendaftaran.
+
+## 2. Membuat Fungsi Login
+Buka views.py yang ada pada subdirektori main, kemudianTambahkan import authenticate, login, dan AuthenticationForm. Lalu tambahkan fungsi login_user di bawah ini ke dalam views.py.
+```python
+def login_user(request):
+   if request.user.is_authenticated:
+        return redirect('main:show_main')
+   
+   if request.method == 'POST':
+      form = AuthenticationForm(data=request.POST)
+
+      if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            response = HttpResponseRedirect(reverse('main:show_main'))
+            response.set_cookie('last_login', datetime.datetime.now())
+            return response
+
+   else:
+      form = AuthenticationForm(request)
+
+   context = {'form': form}
+   return render(request, 'auth/login.html', context)
+
+```
+Lalu buat template auth/login.html untuk menampilkan form login.
+
+## 3. Membuat Fungsi Logout
+Buka views.py yang ada pada subdirektori main. Tambahkan import logout, lalu tambahkan fungsi logout_user
+```python
+def logout_user(request):
+    logout(request)
+    return redirect('main:login')
+```
+## 4. Hubungkan semua view melalui urls.py
+```python
+from django.urls import path
+from main.views import show_main, add_to_cart, show_xml, show_json, show_xml_by_id, show_json_by_id, register, login_user, logout_user
+
+
+app_name = 'main'
+
+urlpatterns = [
+    path('', show_main, name='show_main'),
+    path('add-to-cart', add_to_cart, name='add_to_cart'),
+    path('xml/', show_xml, name='show_xml'),
+    path('json/', show_json, name='show_json'),
+    path('xml/<str:id>/', show_xml_by_id, name='show_xml_by_id'),
+    path('json/<str:id>/', show_json_by_id, name='show_json_by_id'),
+    path('register/', register, name='register'),
+    path('login/', login_user, name='login'),
+    path('logout/', logout_user, name='logout'),
+]
+```
+
+## 6. Membuat Dua Akun Pengguna dengan Dummy Data
+
+
+## 7. Menggunakan Data Dari Cookies
+Buka views.py yang ada pada subdirektori main. Tambahkan import HttpResponseRedirect, reverse, dan datetime.
+Lalu Pada fungsi login_user,  tambahkan fungsionalitas menambahkan cookie yang bernama last_login untuk melihat kapan terakhir kali pengguna melakukan login. 
+```python
+if form.is_valid():
+    user = form.get_user()
+    login(request, user)
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    response.set_cookie('last_login', str(datetime.datetime.now()))
+    return response
+```
+
+## 8. Menghubungkan Model MoodEntry dengan User
+Buka models.py yang ada pada subdirektori main dan tambahkan import user untuk mengimpor model, kemudian pada model LayotStore yang sudah dibuat, tambahkan potongan kode berikut:
+```python
+class LayotStore(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ...
+```
+```python
+class LayotStore(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    time = models.DateField(auto_now_add=True)
+    description = models.TextField()
+    total = models.IntegerField()
+   
+```
