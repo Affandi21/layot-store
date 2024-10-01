@@ -559,14 +559,15 @@ Navbar diletakkan di bagian atas halaman dengan tautan ke halaman-halaman utama 
 
 Bukti screenshot tampilan login, register, main dengan product dan tanpa product, create product, dan edit product
 1. Login
-![alt text](<Tangkapan Layar 2024-10-02 pukul 04.41.46.png>)
+![image](https://github.com/Affandi21/layot-store/blob/7670ddd7bc484a714c1b3832610fe1e7bcdec06a/src/Screenshot%20(49).png)
+
 2. Register
-![alt text](<Tangkapan Layar 2024-10-02 pukul 04.41.46.png>)
+![image](https://github.com/Affandi21/layot-store/blob/7670ddd7bc484a714c1b3832610fe1e7bcdec06a/src/Screenshot%20(50).png)
 3. Main dengan product
-![alt text](<Tangkapan Layar 2024-10-02 pukul 04.42.10.png>)
+![image](https://github.com/Affandi21/layot-store/blob/7670ddd7bc484a714c1b3832610fe1e7bcdec06a/src/Screenshot%20(51).png)
 4. Main tanpa product
-![alt text](<Tangkapan Layar 2024-10-02 pukul 04.42.33.png>)
+![image]()
 5. Create Product
-![alt text](<Tangkapan Layar 2024-10-02 pukul 04.42.56.png>)
+![image](https://github.com/Affandi21/layot-store/blob/7670ddd7bc484a714c1b3832610fe1e7bcdec06a/src/Screenshot%20(52).png)
 6. Edit Product
-![alt text](<Tangkapan Layar 2024-10-02 pukul 04.43.07.png>)
+![image](https://github.com/Affandi21/layot-store/blob/7670ddd7bc484a714c1b3832610fe1e7bcdec06a/src/Screenshot%20(53).png)
