@@ -566,7 +566,7 @@ Bukti screenshot tampilan login, register, main dengan product dan tanpa product
 3. Main dengan product
 ![image](https://github.com/Affandi21/layot-store/blob/7670ddd7bc484a714c1b3832610fe1e7bcdec06a/src/Screenshot%20(51).png)
 4. Main tanpa product
-![image]()
+![image](https://github.com/Affandi21/layot-store/blob/2c4933652be1f057cca233f0c77581e1acc4f562/src/Screenshot%202024-10-02%20051649.png)
 5. Create Product
 ![image](https://github.com/Affandi21/layot-store/blob/7670ddd7bc484a714c1b3832610fe1e7bcdec06a/src/Screenshot%20(52).png)
 6. Edit Product
