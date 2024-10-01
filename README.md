@@ -496,3 +496,77 @@ class LayotStore(models.Model):
     total = models.IntegerField()
    
 ```
+
+## Tugas 5 PBP 2024/2025
+
+TUGAS INDIVIDU 5
+
+Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+Jawab:
+CSS tentunya memiliki urutan prioritas yang menentukan gaya mana yang diterapkan pada elemen HTML ketika beberapa selector digunakan. Urutan prioritas CSS mengikuti aturan berikut:
+1. Inline CSS: 
+Gaya yang diterapkan langsung pada elemen HTML memiliki prioritas tertinggi (misalnya, <div style="color: red;">).
+2. ID Selector: 
+Selector berbasis ID (misalnya, #header) memiliki prioritas yang lebih tinggi dibandingkan dengan selector lainnya seperti class dan elemen.
+3. Class Selector, Attribute Selector, dan Pseudo-Class: 
+Class (.className), attribute selector ([type="text"]), dan pseudo-class (:hover, :active) memiliki prioritas yang lebih rendah dibandingkan ID selector, namun lebih tinggi dari elemen.
+4. Tag Selector: Selector elemen atau tag HTML (div, p, h1, dll.) memiliki prioritas paling rendah.
+5. Universal Selector (*) dan Inherited Style: Gaya yang diwarisi dari elemen parent atau universal selector memiliki prioritas terendah.
+
+Ketika dua selector memiliki tingkat spesifisitas yang sama, urutan definisi dalam stylesheet akan menentukan mana yang diterapkan. Gaya yang didefinisikan terakhir akan menimpa gaya sebelumnya. Selain itu, gaya dengan !important akan selalu diutamakan, terlepas dari urutan atau spesifisitas.
+
+Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+Jawab:
+Responsive design memastikan bahwa tampilan dan fungsi situs tetap optimal, terlepas dari ukuran layar yang berbeda dari masing-masing pengguna.Dengan adanya responsive design, pengguna mendapatkan pengalaman yang lebih baik tanpa harus memperbesar atau menggulir secara berlebihan. Hal ini dapat meningkatkan kepuasan dan keterlibatan pengguna. Dengan responsive design, situs web lebih mungkin mendapatkan peringkat yang lebih baik di hasil pencarian.
+
+Contoh:
+1. Sudah Menerapkan Responsive Design: YouTube dengan Layout video dan kontrol yang menyesuaikan dengan layar ponsel atau tablet.
+2. Belum Menerapkan Responsive Design: Aplikasi mobile versi lama, seperti Tetris Classic yang didesain hanya untuk layar berukuran tetap dengan rasio yang spesifik (misalnya 4:3 atau 16:9).
+
+Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+Jawab:
+1. Margin: Ruang antara elemen dengan elemen lain di luar elemen tersebut. Margin tidak memiliki warna atau isi dan hanya berupa ruang kosong di luar batas elemen.
+2. Border: Garis yang mengelilingi elemen, terletak di antara margin dan padding. Border dapat diberi warna, lebar, dan gaya (misalnya solid, dotted).
+3. Padding: Ruang di dalam elemen antara konten elemen dan border. Padding menambah ruang di dalam elemen tanpa mempengaruhi ukuran elemen itu sendiri secara eksternal.
+4. Implementasi: 
+.div-style {
+  margin: 20px; /* Jarak dari elemen lain */
+  border: 2px solid black; /* Garis tepi di sekitar elemen */
+  padding: 15px; /* Ruang antara border dan konten di dalam elemen */
+}
+
+Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+Jawab:
+1. Flexbox: Flexbox (Flexible Box Layout) adalah modul CSS yang dirancang untuk menyusun elemen dalam satu dimensi (baik horizontal atau vertikal). Flexbox sangat berguna untuk mengatur layout dinamis, merespon ukuran kontainer, dan memusatkan elemen. Flexbox sering digunakan untuk tata letak yang memerlukan aliran konten seperti navbar atau tombol yang harus disusun di sepanjang satu baris atau kolom.
+2. Grid Layout: Grid layout memungkinkan pengaturan elemen dalam dua dimensi, yaitu baris dan kolom. Grid sangat berguna untuk tata letak yang kompleks. Grid digunakan untuk layout yang lebih kompleks dan terstruktur seperti halaman majalah, dashboard, atau galeri gambar.
+
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+Jawab:
+1. Implementasikan fungsi untuk menghapus dan mengedit product.
+Pertama, kita menambahkan fungsi edit_product dan delate_product di views.py untuk memuat/menghapus data product berdasarkan id, menampilkan form, dan menyimpan perubahan. Kemudian menambahkan import reverse dan HttpsResponseRedirect. Selanjutnya membuat file edit_product.html dan delate_product.html, menambahkan route URL, dan memodifikasi main.html untuk menampilkan tombol edit dan delate.
+
+2. Kustomisasi halaman login, register, dan tambah product semenarik mungkin.
+Saya menggunakan framework TailwindCSS untuk membuat tampilan yang responsif dengan layout yang rapi. Form input diberi kelas CSS untuk mengontrol ukuran penuh di layar, dan menambahkan padding serta margin agar elemen terlihat lebih rapi dan profesional. Saya Menggunakan palet warna yang minimalis dan monokrom, seperti kombinasi abu-abu, putih yang akan memberikan kesan modern. Kemudian saya menggunakan shadow dan border-radius pada kotak input dan tombol untuk memberikan efek depth (kedalaman) yang membuat elemen UI lebih menarik. Tombol diberi efek hover untuk memberikan feedback visual kepada pengguna. Kemudian, menambahkan font bold untuk judul, ukuran teks yang lebih besar untuk elemen penting, serta penggunaan font sans-serif agar terlihat lebih modern dan jelas.
+3. Kustomisasi halaman daftar product menjadi lebih menarik dan responsive.
+
+Saya menggunakan CSS Grid atau Flexbox untuk membuat layout produk dalam bentuk grid yang fleksibel. Ini memungkinkan produk untuk diatur dalam kolom-kolom, dan akan menyesuaikan secara otomatis berdasarkan ukuran layar. Untuk setiap produk ditampilkan dalam card, dengan border radius, bayangan, dan warna latar belakang yang menarik. Elemen seperti gambar produk, nama produk, deskripsi, dan harga diletakkan di dalam card_product. Kemudian menyesuaikan jumlah kolom berdasarkan ukuran layar. Misalnya, 1 kolom untuk layar mobile, 2 kolom untuk tablet, dan 3 kolom atau lebih untuk layar yang lebih besar. Kemudian, menambahkan hover effect pada card produk, di mana ukuran atau bayangan card akan berubah saat pengguna mengarahkan kursor, memberikan pengalaman yang lebih interaktif.
+
+4. Membuat dua buah button untuk mengedit dan menghapus product pada card product!
+Tombol ditempatkan di dalam card di bagian bawah atau sudut kanan bawah, untuk mempermudah pengguna dalam mengakses fitur edit dan hapus. Tombol dibuat menggunakan warna yang sesuai dengan fungsinya. Misalnya, tombol Edit diberi warna netral atau warna aksen seperti abu-abu, sedangkan tombol Delete diberi warna merah untuk memperjelas bahwa itu adalah tombol untuk menghapus product.
+
+5. Membuat navigation bar (navbar) untuk fitur-fitur pada aplikasi yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop!
+Navbar diletakkan di bagian atas halaman dengan tautan ke halaman-halaman utama yang berisi fitur Home, Produk, Categories, Cart, Welcome (user), serta Logout. Navbar dilengkapi dengan hamburger menu (ikon tiga garis) yang muncul di perangkat mobile. Saat ikon ini diklik, menu dropdown akan menampilkan tautan yang sama dengan versi desktop, tapi dalam bentuk yang lebih kompak.Saya menggunakan warna latar belakang yang gelap (misalnya indigo atau abu-abu gelap) dengan teks dan tautan berwarna terang (putih atau abu-abu cerah) seperti konsep monokrom yang saya inginkan. Shadow dan fixed position juga ditambahkan agar navbar selalu terlihat di bagian atas halaman saat pengguna menggulir. Kemudian menggunakan media queries agar desain navbar akan berubah pada berbagai ukuran layar. Pada layar kecil, elemen navbar ditumpuk secara vertikal di bawah tombol hamburger, sementara pada layar besar elemen-elemen tersebut ditampilkan secara horizontal.
+
+Bukti screenshot tampilan login, register, main dengan product dan tanpa product, create product, dan edit product
+1. Login
+![alt text](<Tangkapan Layar 2024-10-02 pukul 04.41.46.png>)
+2. Register
+![alt text](<Tangkapan Layar 2024-10-02 pukul 04.41.46.png>)
+3. Main dengan product
+![alt text](<Tangkapan Layar 2024-10-02 pukul 04.42.10.png>)
+4. Main tanpa product
+![alt text](<Tangkapan Layar 2024-10-02 pukul 04.42.33.png>)
+5. Create Product
+![alt text](<Tangkapan Layar 2024-10-02 pukul 04.42.56.png>)
+6. Edit Product
+![alt text](<Tangkapan Layar 2024-10-02 pukul 04.43.07.png>)
