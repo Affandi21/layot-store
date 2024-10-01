@@ -1,0 +1,37 @@
+<div class="relative break-inside-avoid">
+    <div class="bg-gray-800 shadow-lg rounded-lg mb-6 flex flex-col border border-gray-800">
+      <div class="text-white px-4 pt-4 pb-2 rounded-t-lg">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-bold text-lg">{{product.nama}}</h3>
+            <p class="text-gray-400 text-sm">{{product.time}}</p>
+          </div>
+          <div class="flex space-x-1">
+            <a href="{% url 'main:edit_product' product.pk %}" class="text-white p-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L12 19.768V22h-2.232l-6.804-6.804a1 1 0 010-1.414l9.9-9.9a1 1 0 011.415 0z"/>
+              </svg>
+            </a>
+            <a href="{% url 'main:delete_product' product.pk %}" class="text-white p-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 pb-4">
+        <p class="text-gray-300 font-semibold mb-1">Description</p> 
+        <p class="text-gray-300 mb-3">{{product.deskripsi}}</p>
+        <p class="text-gray-300 font-semibold mb-1">Total</p>
+        <div class="flex items-center">
+          <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-900 bg-gray-600">
+            {% if product.stok > 10 %}10+{% else %}{{product.stok}}{% endif %}
+          </span>
+          <div class="overflow-hidden h-2 ml-2 text-xs flex rounded bg-gray-900 w-full">
+            <div style="width:{% if product.stok > 10 %}100%{% else %}{{ product.stok }}0%{% endif %}" class="flex flex-col text-center whitespace-nowrap text-white justify-center bg-gray-300"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 from django.forms import ModelForm
-from main.models import LayotStore
+from main.models import Product
 
-class LayotStoreForm(ModelForm):
+class ProductEntryForm(ModelForm):
     class Meta:
-        model = LayotStore
-        fields = ["name", "description", "total"]
+        model = Product
+        fields = ["nama", "deskripsi", "stok", "harga"]

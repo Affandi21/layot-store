@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+<title>Add Product</title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<style>
+  /* Custom styles for input fields to ensure visibility in dark theme */
+  input, textarea, select {
+    background-color: #333;  /* Dark background for input */
+    color: #fff;  /* White text color */
+    border: 2px solid #555;  /* Slightly lighter border for contrast */
+    padding: 8px;  /* Padding for better text alignment */
+    border-radius: 4px;  /* Rounded borders */
+  }
+
+  /* Style adjustments for placeholders */
+  ::placeholder {
+    color: #bbb;  /* Lighter color for placeholders */
+  }
+</style>
+
+<div class="flex flex-col min-h-screen bg-gray-900">  <!-- Dark background for the entire screen -->
+  <div class="container mx-auto px-4 py-8 mt-16 max-w-xl">
+    <h1 class="text-3xl font-bold text-center mb-8 text-white">Add Product</h1>  <!-- Header text in white -->
+
+    <div class="bg-gray-800 shadow-md rounded-lg p-6 form-style">  <!-- Form container with dark gray background -->
+      <form method="POST" class="space-y-6">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="flex flex-col">
+            <label for="{{ field.id_for_label }}" class="mb-2 font-semibold text-gray-300">  <!-- Gray text for labels -->
+              {{ field.label }}
+            </label>
+            <div class="w-full">
+              {{ field }}  <!-- Inputs will adopt the styles defined above -->
+            </div>
+            {% if field.help_text %}
+              <p class="mt-1 text-sm text-gray-500">{{ field.help_text }}</p>  <!-- Help text in lighter gray -->
+            {% endif %}
+            {% for error in field.errors %}
+              <p class="mt-1 text-sm text-red-500">{{ error }}</p>  <!-- Red text for errors -->
+            {% endfor %}
+          </div>
+        {% endfor %}
+        <div class="flex justify-center mt-6">
+          <button type="submit" class="bg-gray-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-gray-600 transition duration-300 ease-in-out w-full">  <!-- Button styling consistent with the dark theme -->
+            Add Product
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
