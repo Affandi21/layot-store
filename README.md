@@ -499,7 +499,6 @@ class LayotStore(models.Model):
 
 ## Tugas 5 PBP 2024/2025
 
-TUGAS INDIVIDU 5
 
 Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
 Jawab:
@@ -571,3 +570,57 @@ Bukti screenshot tampilan login, register, main dengan product dan tanpa product
 ![image](https://github.com/Affandi21/layot-store/blob/7670ddd7bc484a714c1b3832610fe1e7bcdec06a/src/Screenshot%20(52).png)
 6. Edit Product
 ![image](https://github.com/Affandi21/layot-store/blob/7670ddd7bc484a714c1b3832610fe1e7bcdec06a/src/Screenshot%20(53).png)
+
+
+## Tugas 6 PBP 2024/2025
+
+### Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+### manfaat penggunaan JavaScript dalam pengembangan aplikasi web:
+
+1. Interaktivitas: Menambahkan interaksi dinamis pada halaman web, seperti animasi dan validasi form real-time.
+2. Pengalaman Pengguna yang Lebih Baik: Menciptakan antarmuka yang responsif dan intuitif.
+3. Operasi Asinkron: Mengizinkan konten web untuk diperbarui secara real-time tanpa perlu memuat ulang seluruh halaman menggunakan AJAX.
+4. Universalitas: Didukung oleh semua browser modern, memungkinkan aplikasi berjalan di berbagai perangkat.
+5. Pengembangan Full-Stack: Dapat digunakan baik di front-end maupun back-end (misalnya menggunakan Node.js).
+6. Ekosistem Luas: Akses ke banyak pustaka dan framework yang memperkaya fitur dan fungsi aplikasi.
+7. Komunikasi Real-Time: Memfasilitasi fitur seperti chat dan game interaktif dengan WebSockets.
+8. Kemampuan SEO: Dengan teknologi seperti rendering sisi server, JavaScript menjadi lebih ramah SEO.
+9. Scalability: Mendukung pengolahan permintaan yang banyak dan simultan, cocok untuk aplikasi berskala besar.
+
+JavaScript memungkinkan pembuatan aplikasi web yang lebih interaktif, efisien, dan user-friendly.
+
+### Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+
+### Fungsi await dengan fetch()
+1. Menunggu Resolusi Promise: fetch() mengembalikan sebuah Promise yang akan terpenuhi ketika permintaan HTTP selesai. Menggunakan await menyebabkan eksekusi fungsi asinkron di mana ia dipanggil untuk dihentikan sampai Promise tersebut terpenuhi atau ditolak.
+
+2. Kode yang Bersih dan Mudah Dibaca: Dengan await, kode untuk menangani permintaan asinkron terlihat lebih seperti alur yang sinkron. Hal ini memudahkan pembacaan dan pemeliharaan kode, karena mengurangi kebutuhan akan metode .then() dan .catch() yang bisa membuat kode menjadi lebih bertingkat dan rumit.
+
+3. Pengelolaan Error yang Efisien: Menggunakan await dalam blok try...catch memungkinkan penanganan kesalahan yang lebih intuitif untuk operasi asinkron dibandingkan dengan pendekatan berbasis .catch().
+
+### Yang Terjadi Jika Tidak Menggunakan await
+
+1. Eksekusi Non-Blokir: Jika await tidak digunakan, eksekusi kode akan terus berlangsung tanpa menunggu resolusi Promise dari fetch(). Ini berarti kode yang berada setelah pemanggilan fetch() akan dieksekusi sebelum permintaan HTTP selesai.
+
+2. Penggunaan .then() dan .catch(): Tanpa await, biasanya perlu menggunakan .then() untuk menangani hasil yang berhasil dari Promise dan .catch() untuk menangani kesalahan.
+
+3. Potensi Bug: Jika kode setelah fetch() bergantung pada hasil dari fetch() tetapi tidak menunggu penyelesaian Promise, ini bisa menghasilkan bug atau perilaku yang tidak diinginkan, seperti variabel yang belum diinisialisasi dengan data dari permintaan atau tindakan yang dilakukan pada data yang belum tersedia.
+
+
+### Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+Decorator csrf_exempt digunakan untuk menonaktifkan pengecekan CSRF pada permintaan POST, seperti dalam AJAX POST. Hal ini diperlukan untuk menghindari kegagalan permintaan yang tidak menyertakan token CSRF, seperti pada fungsi add_product_entry_ajax.
+
+
+### Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+Meskipun validasi di frontend penting untuk memberikan umpan balik cepat kepada pengguna, pembersihan dan validasi di backend juga diperlukan untuk alasan keamanan.Frontend bisa dimodifikasi oleh pengguna melalui alat seperti dev tools, yang memungkinkan mereka untuk melewati validasi atau memanipulasi input. Validasi di backend memastikan bahwa input yang tidak valid tidak diterima oleh server meskipun validasi frontend telah diubah atau dilewati. Backend dapat memberikan tingkat validasi dan sanitasi yang lebih mendalam, misalnya memeriksa integritas data, format yang benar, dan keamanan dari serangan seperti SQL Injection atau Cross-Site Scripting (XSS). Dengan melakukan pembersihan di backend, kita memastikan bahwa aplikasi akan bekerja sesuai yang diharapkan terlepas dari bagaimana input dimasukkan di frontend, menjaga keandalan dan prediktabilitas sistem. Oleh karena itu, validasi di frontend dan backend sama-sama penting. Frontend memberikan feedback langsung kepada pengguna, sedangkan backend memastikan keamanan dan integritas data.
+
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+1. Menambahkan eror message pada login, dimana akan menempelkan pesan eror kepada request yang mengirimkan permintaan login, yang nantinya akan ditempelkan di template login html.
+2. Membuat function untuk menambahkan product dengan AJAX, yaitu dengan menambahkan import dan membuat fungsi baru di views.py dengan nama add_product_entry_ajax.
+3. Menambahkan routing untuk fungsi add_product_entry_ajax, dengan membuka urls.py pada direktori main dan mengimpor fungsi yang sudah kita buat serta menambahkan path url ke urlpatterns untuk mengakses fungsi impor yang sudah diimpor tadi.
+4. Menampilkan data Product Entry dengan fetch() API, yaitu dengan meghapus 2 baris pada file views.py dan mengubah baris pertama pada fungsi show_xml dan show_json. Kemudian membuka file main.html dan menghapus bagian block conditional product_entries untuk menampilkan card_product ketika kosong atau tidak. Kemudian membuat block script di bagian bawah file, yaitu sebelum {% endblock content %}. Kemudian memebuat fungsi baru pada block script dengan nama refreshProdEntries yang digunakan untuk me-refresh data moods secara asinkronus.
+5. Membuat modal sebagai form untuk menambahkan mood. agar modal dapat berfungsi, kita perlu menambahkan fungsi-fungsi JavaScript.
+6. Menambahkan data Product dengan AJAX. dimana modal dengan form yang telah kita buat tadi digunakan untuk menambhakan data product. sehingga kita perlu membuat fungsi JavaScript, kemudian tambahin sebuah event listener pada form di modal untuk menjalankan fungsi addProduct().
+7. Melindungi aplikasi dari cross site scripting(XSS), yaitu dengan menambahkan data product baru dengan nilai field. Field lain dapat diisi sesuai dengan keinginan kita lalu tekan tombol simpan dan jika penyimpanan berhasil maka kita akan mendapatkan pesan alert dengan nilai xss. Kemudian kita menambahkan strips_tags untuk memebersihkan data baru  dengan membuka berkas views.py dan menambahkan import strip_tags dan pada fungsi add_product_ajax kita gunakan fungsi strip_tags pada data product. Kemudian kita menambahkan strips_tags dan hapus data product yang tadi kita tambahin, membersihkan data dengan DOMPurify dengan membuka main.html
+8. Me-refresh halaman utama kita dan alert box tidak akan muncul lagi di browser kita.
