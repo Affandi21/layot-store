@@ -624,3 +624,115 @@ Meskipun validasi di frontend penting untuk memberikan umpan balik cepat kepada 
 6. Menambahkan data Product dengan AJAX. dimana modal dengan form yang telah kita buat tadi digunakan untuk menambhakan data product. sehingga kita perlu membuat fungsi JavaScript, kemudian tambahin sebuah event listener pada form di modal untuk menjalankan fungsi addProduct().
 7. Melindungi aplikasi dari cross site scripting(XSS), yaitu dengan menambahkan data product baru dengan nilai field. Field lain dapat diisi sesuai dengan keinginan kita lalu tekan tombol simpan dan jika penyimpanan berhasil maka kita akan mendapatkan pesan alert dengan nilai xss. Kemudian kita menambahkan strips_tags untuk memebersihkan data baru  dengan membuka berkas views.py dan menambahkan import strip_tags dan pada fungsi add_product_ajax kita gunakan fungsi strip_tags pada data product. Kemudian kita menambahkan strips_tags dan hapus data product yang tadi kita tambahin, membersihkan data dengan DOMPurify dengan membuka main.html
 8. Me-refresh halaman utama kita dan alert box tidak akan muncul lagi di browser kita.
+
+
+
+## Tugas 9 PBP 2024/2025
+
+### Jelaskan mengapa kita perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika kita tidak membuat model terlebih dahulu?
+    Manfaat membuat model:
+        Validasi data: Dengan model, kita memastikan bahwa data yang diterima atau dikirim sesuai dengan struktur dan tipe yang diharapkan, sehingga mengurangi risiko error saat memproses data.
+        Kemudahan manipulasi: Model mempermudah pengolahan data karena kita dapat mengakses properti data secara langsung melalui atribut atau metode pada model.
+        Pemeliharaan kode: Struktur model membantu pengembang memahami data yang dikelola aplikasi, sehingga kode lebih terorganisir dan mudah diperbarui.
+    Konsekuensi jika tidak membuat model:
+        Tidak akan langsung terjadi error, tetapi aplikasi menjadi rawan kesalahan seperti:
+            Data yang tidak valid tidak dapat terdeteksi lebih awal.
+            Akses atribut data menjadi tidak aman karena data diolah langsung dari respons mentah JSON.
+
+
+### Jelaskan fungsi dari library http yang sudah kamu implementasikan pada tugas ini
+Library http di Flutter digunakan untuk mengirimkan permintaan (request) HTTP dan menerima respons (response) dari server. Fungsi utamanya adalah:
+
+    Mengirim permintaan HTTP (GET, POST, PUT, DELETE, dll.) ke server.
+    Menerima dan mengolah data yang dikembalikan server dalam format seperti JSON, XML, atau HTML.
+    Mengirim data (body) dalam format tertentu, seperti application/json atau form-data.
+    Menyediakan kontrol atas header dan autentikasi.
+
+###  Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+    Fungsi CookieRequest:
+        Menyimpan cookie selama sesi berlangsung. Cookie ini biasanya digunakan untuk mengelola autentikasi atau melacak sesi pengguna di server.
+        Mempermudah pengiriman permintaan HTTP dengan autentikasi berbasis cookie tanpa harus menambah header manual pada setiap permintaan.
+        Menyediakan metode untuk login, logout, dan memeriksa status autentikasi.
+
+    Mengapa instance CookieRequest dibagikan?
+        Agar semua komponen dalam aplikasi Flutter dapat berbagi informasi sesi (seperti token atau cookie) yang sama.
+        Membantu sinkronisasi status pengguna di berbagai bagian aplikasi (contohnya, jika pengguna logout, semua komponen mengetahui status tersebut).
+
+
+
+###  Jelaskan mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter.
+4. Mekanisme pengiriman data (dari input hingga ditampilkan pada Flutter)
+
+    Input data:
+        Pengguna memasukkan data ke dalam form di Flutter.
+    Pengiriman ke server:
+        Data dikirimkan dalam bentuk JSON melalui permintaan HTTP menggunakan library seperti http atau CookieRequest.
+    Pengolahan di server:
+        Django memproses data, memvalidasinya, dan menyimpannya ke database (jika POST) atau mengambil data dari database (jika GET).
+    Respon dari server:
+        Django mengirimkan respons berupa data JSON kembali ke Flutter.
+    Menampilkan data di Flutter:
+        Data JSON diterjemahkan menjadi model Dart.
+        Data yang sudah diproses ditampilkan melalui widget di Flutter.
+
+
+###  Jelaskan mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+ Mekanisme autentikasi (Login, Register, Logout)
+Login:
+
+    Pengguna memasukkan kredensial (email/username dan password).
+    Flutter mengirimkan data tersebut ke endpoint Django (via POST).
+    Django memeriksa kredensial:
+        Jika valid, Django membuat dan mengembalikan cookie atau token.
+        Jika tidak valid, Django mengembalikan pesan error.
+    Cookie/token disimpan oleh CookieRequest di Flutter untuk digunakan pada permintaan berikutnya.
+    Flutter mengarahkan pengguna ke halaman utama.
+
+Register:
+
+    Pengguna memasukkan data akun baru di Flutter.
+    Flutter mengirim data tersebut ke endpoint Django (via POST).
+    Django memvalidasi data:
+        Jika valid, Django membuat akun baru dan mengembalikan respons sukses.
+        Jika tidak valid, Django mengembalikan pesan error.
+    Flutter menampilkan notifikasi dan mengarahkan pengguna ke halaman login.
+
+Logout:
+
+    Flutter mengirimkan permintaan logout ke Django (via POST).
+    Django menghapus cookie atau token yang tersimpan di server.
+    Flutter menghapus data sesi pengguna dan mengarahkan pengguna ke halaman login.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
+6. Implementasi checklist secara step-by-step
+
+Berikut langkah-langkah implementasi:
+
+    Persiapan di Django:
+        Buat model untuk pengguna, validasi data, dan endpoint API menggunakan Django Rest Framework (DRF).
+        Implementasikan endpoint untuk login, register, dan logout.
+        Pastikan autentikasi menggunakan cookie atau token sudah diatur.
+
+    Persiapan di Flutter:
+        Tambahkan dependensi http atau package lain seperti dio.
+        Buat model Dart untuk mencocokkan struktur data JSON dari Django.
+        Implementasikan kelas CookieRequest untuk menangani sesi.
+
+    Membuat fitur register:
+        Buat form di Flutter untuk input data pengguna.
+        Kirim data ke endpoint register Django.
+        Tangani respons sukses atau error.
+
+    Membuat fitur login:
+        Buat form login di Flutter.
+        Kirim data kredensial ke endpoint login Django.
+        Simpan cookie atau token di CookieRequest jika login berhasil.
+
+    Membuat fitur logout:
+        Tambahkan tombol logout di Flutter.
+        Kirim permintaan logout ke server.
+        Bersihkan data sesi di Flutter dan navigasikan pengguna ke halaman login.
+
+    Menampilkan data:
+        Implementasikan fetch data menggunakan permintaan GET ke Django.
+        Parse data JSON ke dalam model Dart dan tampilkan di widget Flutter.
